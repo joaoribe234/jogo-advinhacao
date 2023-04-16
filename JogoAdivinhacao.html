@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Jogo de Adivinhação do Resultado de BRASIL X ALEMANHA</title>
+  </head>
+  <body>
+    <h1>Jogo de Adivinhação do Resultado de BRASIL X ALEMANHA</h1>
+    <p>Você tem até 10 tentativas</p>
+    <p>Resultado entre (0x0) e (10x10).</p>
+    <label for="gols-brasil">Brasil:</label>
+    <input type="number" id="gols-br" min="0" max="10">
+    <label for="gols-alemanha">Alemanha:</label>
+    <input type="number" id="gols-al" min="0" max="10">
+    <button onclick="verificarPalpite()">Verificar</button>
+    <button id="reiniciar" onclick="reiniciarJogo()">Reiniciar</button>
+    <p id="resultado"></p>
+    <script>
+      var palpites = 0;
+      function verificarPalpite() {
+        var golsBr = parseInt(document.getElementById("gols-br").value);
+        var golsAl = parseInt(document.getElementById("gols-al").value);
+
+        if (palpites >= 10) {
+            alert("Você excedeu o número máximo de tentativas. Clique em Reiniciar para jogar novamente.");
+        document.getElementById("reiniciar").style.display = "block";
+        } else if (golsBr < 0 || golsBr > 10 || golsAl < 0 || golsAl > 10) {
+          document.getElementById("resultado").innerHTML = "Valor digitado inválido para os gols, lembre que a quantidade de gols de cada time deve estar entre 0 e 10.";
+        } else {
+          var palpiteAleatorioBrasil = Math.floor(Math.random() * 11);
+          var palpiteAleatorioAlemanha = Math.floor(Math.random() * 11);
+
+          if (golsBr == palpiteAleatorioBrasil && golsAl == palpiteAleatorioAlemanha) {
+            document.getElementById("resultado").innerHTML = "Olha que sorte, você acertou";
+          } else {
+            document.getElementById("resultado").innerHTML = "Errado! O palpite correto era Brasil " + palpiteAleatorioBrasil + " x " + palpiteAleatorioAlemanha + " Alemanha.";
+            palpites++;
+          }
+        }
+      }
+      function reiniciarJogo() {
+        palpites = 0;
+    document.getElementById("gols-br").value = "";
+    document.getElementById("gols-al").value = "";
+    document.getElementById("reiniciar").style.display = "none";
+  }
+    </script>
+  </body>
+</html>
